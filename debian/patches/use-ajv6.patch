@@ -1,0 +1,11 @@
+Description: Use ajv6
+--- a/test/index.js
++++ b/test/index.js
+@@ -6,6 +6,7 @@
+ 
+ tap.test('har-schema', (assert) => {
+   const ajv = new Ajv()
++  ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
+   const keys = Object.keys(schemas)
+ 
+   assert.plan(keys.length * 2)

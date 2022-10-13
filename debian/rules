@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/dpkg/pkg-info.mk
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cp package.json debian/
+	perl -i -pe 's/0.0.0-development/$(DEB_VERSION_UPSTREAM)/' package.json
+
+override_dh_auto_clean:
+	if test -e debian/package.json; then \
+		mv debian/package.json package.json; \
+	fi
+	dh_auto_clean --buildsystem=nodejs
